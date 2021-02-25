@@ -2,9 +2,9 @@
 Tiny, header-only, Entity-Component framework in 420 lines of C++ 
 
 
-User defined classes derived from class Component<T> are automatically registered at compile time, without any macro or runtime method calls.
-Components of the same type are stored in std::vectors and kept packed through the program execution, to avoid cache miss.
-Below some examples to use the framework (all taken from the main.cpp in repo).
+User defined classes derived from class Component<T> are automatically registered at compile time, without any macro or runtime method calls.  
+Components of the same type are stored in std::vectors and kept packed through the program execution, to avoid cache miss.  
+Below some code samples using the framework (all taken from the main.cpp in repo).
 
 * Example Component class declaration
 ```cpp
