@@ -37,20 +37,21 @@ public:
 	
 	static constexpr const char *name = "E"; //component name
 	
-	static void drawUI(ECS &world, Entity id) { // component drawUI function
+	// custom component drawUI function to use with ImGUI or similar 
+	static void drawUI(ECS &world, Entity id) { 
 		E &e = world.component<E>(id);
 		
 		// draw UI
 		cout << "Called custom drawUI of E on Entity " << id << endl;
 	}
 
-	static void create(ECS &world, Entity id) { // optional reimplentable create function
+	static void create(ECS &world, Entity id) { // optional custom create function
 		world.addComponents(id, E());
 
 		cout << "Called custom (re)create E on Entity " << id << endl;
 	}
 
-	static void destroy(ECS &world, Entity id) { // optional reimplentable destroy function
+	static void destroy(ECS &world, Entity id) { // optional custom destroy function
 		world.removeComponent<E>(id);
 
 		cout << "Called custom destroy E on Entity " << id << endl;
@@ -59,11 +60,12 @@ public:
 
 void printComponents()
 {
-	// component register holds component informations (label, type ID) and static functions
+	// static component register holds component descriptions: label, type ID and static functions
 	cout << ecs::ComponentRegister.size() << " registered components\n";
 
-	for (const auto &component : ecs::ComponentRegister)
-		cout << "Name: " << component.label << " Type: " << component.type <<endl;
+	for (const auto &componentDescription : ecs::ComponentRegister)
+		cout << "Name: " << componentDescription.label 
+			<< " Type: " << componentDescription.type << endl;
 }
 
 int main()
@@ -99,10 +101,10 @@ int main()
 	cout << "Random Entity " << entity << endl;
 	
 	// static component functions usage (manipulate entities using only component IDs)
-	for (auto &component : ComponentRegister) {
-		component.drawUI(world, entity);
-		component.create(world, entity);
-		component.destroy(world, entity);
+	for (auto &componentDescription : ComponentRegister) {
+		componentDescription.drawUI(world, entity);
+		componentDescription.create(world, entity);
+		componentDescription.destroy(world, entity);
 	}
 	
 	// remove a component from an entity
@@ -114,11 +116,11 @@ int main()
 	// check entities count
 	cout << world.entities().size() << " Entities created so far" << endl;
 	
-	// entities with multiple components
+	// std::vector of entities with multiple components
 	cout <<  world.entitiesWithComponents<A,B,C>().size() 
 		<< " Entities with Components A, B, C" << endl;
 	
-	// single component vector
+	// std::vector of all instances of a component type
 	cout << world.components<D>().size() 
 		<< " Entities with Components D" << endl;
 	
