@@ -8,7 +8,7 @@ Below some examples to use the framework (all taken from the main.cpp in repo).
 
 * Example Component class declaration
 ```cpp
-class E : public Component<E> {
+class E : public ecs::Component<E> {
 public:
 	int value; // component value
 	
@@ -41,7 +41,7 @@ public:
 ```cpp
 int main(int argc, char** argv)
 {
-	ECS world;
+	ecs::ECS world;
 
 	Entity entity = world.createEntity();
 
@@ -69,7 +69,7 @@ world.components<D>();
 ```
 * A static component register holds all declared component descriptions: label, type ID and static functions
 ```cpp
-for (auto &componentDescription : ComponentRegister) {
+for (auto &componentDescription : ecs::ComponentRegister) {
 	cout << componentDescription.label; \\ component name (const char*)
 	cout << componentDescription.type; \\ component ID (uint16_t)
 	
