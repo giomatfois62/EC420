@@ -1,10 +1,14 @@
 # EC420
-Tiny, header-only, Entity-Component framework in 420 lines of C++ 
+Tiny, header-only, Entity-Component framework in 420 lines of C++(17) 
 
 
 User defined classes derived from class Component<T> are automatically registered at compile time, without any macro or runtime method calls.  
 Components of the same type are stored in std::vectors and kept packed through the program execution, to avoid cache miss.  
-Below some code samples using the framework (all taken from the main.cpp in repo).
+To compile the example main program run  
+```cpp
+g++ main.cpp --std=c++17
+```
+Below some code samples using the framework (taken from the main.cpp in repo).
 
 * Example Component class declaration
 ```cpp
